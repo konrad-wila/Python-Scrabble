@@ -1,5 +1,8 @@
 """Python Scrabble Game - A simple scrabble game written in Python."""
 import random
+import sys
+
+
 def read_scores():
     """Reads the scores from the scores.txt file and returns a dictionary of the scores."""
     with open("scores.txt", "r", encoding="utf-8") as file:
@@ -54,7 +57,7 @@ def can_be_made(word):
             return False
     return True
 
-def is_valid(word, dictionary):
+def is_valid(word):
     """Checks if the word is a valid word."""
     if word in dictionary:
         return True
@@ -74,11 +77,11 @@ def word_input():
             print("Only use English letters...")
         if not can_be_made(word):
             print("You do not have the letters to make this word.")
-        if not is_valid(word, dictionary):
+        if not is_valid(word):
             print("This is not a valid word.")
         if count == 3:
             print("Thanks for using this application, better luck next time!!!")
-            exit
+            sys.exit()
     print("You got it right, this is a valid word")
     print("Score of this word is: " + str(get_word_score(word, scores)))
     remove_word_from_tiles(word)
@@ -89,7 +92,7 @@ def generate_random_tiles():
         tiles.append(random.choice(tiles))
     return tiles
 
-def tile_score(tiles, scores):
+def tile_score(tiles):
     """Calculates the score of the tiles."""
     score = []
     for letter in tiles:
@@ -104,7 +107,7 @@ def start_game():
     print("Generating Random Tiles ...")
     playerTiles = generate_random_tiles()
     print("Tiles: " + str(playerTiles))
-    playerTileScores = tile_score(playerTiles, scores)
+    playerTileScores = tile_score(playerTiles)
     print("Scores:" + str(playerTileScores))
     word_input()
 
