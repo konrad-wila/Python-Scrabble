@@ -83,7 +83,7 @@ def word_input():
             print("Thanks for using this application, better luck next time!!!")
             sys.exit()
     print("You got it right, this is a valid word")
-    print("Score of this word is: " + str(get_word_score(word, scores)))
+    print("Score of this word is: " + str(get_word_score(word)))
     remove_word_from_tiles(word)
 
 def generate_random_tiles():
@@ -92,7 +92,7 @@ def generate_random_tiles():
         tiles.append(random.choice(tiles))
     return tiles
 
-def tile_score(tiles):
+def tile_score():
     """Calculates the score of the tiles."""
     score = []
     for letter in tiles:
@@ -101,14 +101,11 @@ def tile_score(tiles):
     return score
 def start_game():
     """Starts the game."""
-    scores = read_scores()
-    tiles = read_tiles()
-    dictionary = read_dictionary()
     print("Generating Random Tiles ...")
-    playerTiles = generate_random_tiles()
-    print("Tiles: " + str(playerTiles))
-    playerTileScores = tile_score(playerTiles)
-    print("Scores:" + str(playerTileScores))
+    player_tiles = generate_random_tiles()
+    print("Tiles: " + str(player_tiles))
+    player_tile_scores = tile_score()
+    print("Scores:" + str(player_tile_scores))
     word_input()
 
 start_game()
