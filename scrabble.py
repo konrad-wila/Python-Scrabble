@@ -32,10 +32,7 @@ dictionary = read_dictionary()
 
 def only_english_letters(word):
     """Checks if the word only contains English letters."""
-    if word.isalpha():
-        return True
-    else:
-        return False
+    return bool(word.isalpha())
 
 def get_letter_score(letter):
     """Returns the score of the letter."""
@@ -78,7 +75,7 @@ def word_input():
         elif not can_be_made(word):
             print("You do not have the letters to make this word.")
         if count == 3:
-            """Only three tries allowed"""
+            #Only three tries allowed
             print("Thanks for using this application, better luck next time!!!")
             sys.exit()
         if only_english_letters(word) and can_be_made(word) and is_valid(word):
