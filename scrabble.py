@@ -30,14 +30,12 @@ def read_dictionary():
 dictionary = []
 dictionary = read_dictionary()
 
-
-
 def only_english_letters(word):
     """Checks if the word only contains English letters."""
-    for letter in word:
-        if not letter.isalpha():
-            return False
-    return True
+    if word.isalpha():
+        return True
+    else:
+        return False
 
 def get_letter_score(letter):
     """Returns the score of the letter."""
@@ -70,32 +68,35 @@ def remove_word_from_tiles(word):
     return tiles
 
 def word_input():
-    """Gets the word from the user."""
+    """Gets word input from the user and checks if it is valid."""
     for count in range(3):
-        word = input("Enter a word: ")
+        word = input("Enter a word: ").upper()
         if not only_english_letters(word):
             print("Only use English letters...")
-        if not can_be_made(word):
-            print("You do not have the letters to make this word.")
-        if not is_valid(word):
+        elif not is_valid(word):
             print("This is not a valid word.")
+        elif not can_be_made(word):
+            print("You do not have the letters to make this word.")
         if count == 3:
+            """Only three tries allowed"""
             print("Thanks for using this application, better luck next time!!!")
             sys.exit()
-    print("You got it right, this is a valid word")
-    print("Score of this word is: " + str(get_word_score(word)))
-    remove_word_from_tiles(word)
-
+        if only_english_letters(word) and can_be_made(word) and is_valid(word):
+            print("You got it right, this is a valid word")
+            print("Score of this word is: " + str(get_word_score(word)))
+            remove_word_from_tiles(word)
+            break
 def generate_random_tiles():
     """Generates random tiles."""
+    function_tiles = []
     for _ in range(7):
-        tiles.append(random.choice(tiles))
-    return tiles
+        function_tiles.append(random.choice(tiles))
+    return function_tiles
 
-def tile_score():
+def tile_score(function_tiles):
     """Calculates the score of the tiles."""
     score = []
-    for letter in tiles:
+    for letter in function_tiles:
         score.append(get_letter_score(letter))
     print("Your tiles are worth " + str(score) + " points.")
     return score
@@ -104,7 +105,7 @@ def start_game():
     print("Generating Random Tiles ...")
     player_tiles = generate_random_tiles()
     print("Tiles: " + str(player_tiles))
-    player_tile_scores = tile_score()
+    player_tile_scores = tile_score(player_tiles)
     print("Scores:" + str(player_tile_scores))
     word_input()
 
