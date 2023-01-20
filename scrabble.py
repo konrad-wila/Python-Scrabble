@@ -81,6 +81,7 @@ def remove_word_from_tiles(word):
 
 
 def final_input_attempt(attempt_number, max_amount_of_attempts):
+    """Checks if the user has reached the maximum amount of attempts."""
     if attempt_number == max_amount_of_attempts:
         print("Thanks for using this application, better luck next time!!!")
         sys.exit()
