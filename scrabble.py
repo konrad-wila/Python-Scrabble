@@ -168,12 +168,10 @@ def tile_score(function_tiles):
         score.append(getLetterScore(letter))
     return score
 
-
+print("Generating Random Tiles ...")
+player_tiles = generate_random_tiles()
 def start_game():
     """Starts the game."""
-    print("Generating Random Tiles ...")
-    global player_tiles
-    player_tiles = generate_random_tiles()
     print(best_word())
     print("Tiles: " + str(player_tiles))
     player_tile_scores = tile_score(player_tiles)
