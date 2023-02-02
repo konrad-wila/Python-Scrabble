@@ -5,6 +5,8 @@ import random
 
 def read_dictionary():
     # Task 1 function
+    # Precondition: The dictionary.txt file exists and is in the same directory as this file. The file contains is in the correct format.
+    # Postcondition: Returns a list of the words.
     """Reads the dictionary from the dictionary.txt file and returns a list of the words."""
     with open("dictionary.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -18,6 +20,8 @@ dictionary = read_dictionary()
 
 def read_tiles():
     # Task 1 function
+    # Precondition: The tiles.txt file exists and is in the same directory as this file. The file contains is in the correct format.
+    # Postcondition: Returns an array of the tiles.
     """Reads the tiles from the tiles.txt file and returns an array of the tiles."""
     with open("tiles.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -31,6 +35,8 @@ tiles = read_tiles()
 
 def read_scores():
     # Task 1 function
+    # Precondition: The scores.txt file exists and is in the same directory as this file. The file contains is in the correct format.
+    # Postcondition: Returns a dictionary of the scores.
     """Reads the scores from the scores.txt file and returns a dictionary of the scores."""
     with open("scores.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -43,6 +49,9 @@ scores = {}
 scores = read_scores()
 
 def isValid(word):  # noqa: Task defined function name
+    # Task 3 function
+    # Preconditions: word is a string
+    # Postconditions: returns True if the word is a valid word
     """Checks if the word is a valid word."""
     try:
         if word in dictionary:
@@ -53,6 +62,8 @@ def isValid(word):  # noqa: Task defined function name
 
 def getLetterScore(letter):  # noqa: Task defined function name
     # Task 4 function
+    # Preconditions: letter is a string
+    # Postconditions: returns the score of the letter
     """Returns the score of the letter."""
     try:
         return int(scores[letter])
@@ -62,6 +73,8 @@ def getLetterScore(letter):  # noqa: Task defined function name
 
 def getWordScore(word):  # noqa: Task defined function name
     # Task 4 function
+    # Preconditions: word is a string
+    # Postconditions: returns the score of the word
     """Returns the score of the word."""
     if isValid(word):
         score = 0
@@ -72,6 +85,12 @@ def getWordScore(word):  # noqa: Task defined function name
 
 
 def canBeMade(word, myTiles):  # noqa: Task defined function name
+    # Task 5 function
+    # Author: Konrad Wila
+    # Preconditions: word is a string
+    # Preconditions: myTiles is a list of lowercase letters
+    # Postconditions: returns True if word can be made with the tiles
+    # Postconditions: returns False if word cannot be made with the tiles
     """Checks if the word can be made with the tiles."""
     function_player_tiles = myTiles.copy()
     for letter in word:
@@ -87,6 +106,10 @@ def canBeMade(word, myTiles):  # noqa: Task defined function name
 
 
 def generate_random_tiles():
+    # Task 6 function
+    # Author: Konrad Wila
+    # Preconditions: tiles is a list of lowercase letters
+    # Postconditions: returns a list of 7 random tiles
     """Generates random tiles."""
     function_tiles = []
     for _ in range(7):
@@ -98,9 +121,14 @@ player_tiles = generate_random_tiles()
 
 
 def best_word():
-    """Finds the highest scoring word that can be made with the tiles."""
     # non-assessed function (Task 7)
+    # Author: Konrad Wila
     # Brute force method to find the highest scoring word
+    # Preconditions: dictionary is a list of lowercase letters
+    # Preconditions: player_tiles is a list of lowercase letters
+    # Postconditions: returns the highest scoring word that can be made with the tiles
+    # Postconditions: returns an empty string if no word can be made with the tiles
+    """Finds the highest scoring word that can be made with the tiles."""
     highest_scoring_word = ""
     best_score = 0
     for word in dictionary:
