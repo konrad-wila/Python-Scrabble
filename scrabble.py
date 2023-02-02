@@ -1,6 +1,7 @@
 """Python Scrabble Game - A simple scrabble game written in Python."""
 import random
 import sys
+# pylint: disable-msg=C0103
 
 def read_scores():
     # Task 1 function
