@@ -66,16 +66,16 @@ def getWordScore(word):  # noqa: Task defined function name
         for letter in word:
             score += getLetterScore(letter)
         return score
-    else:
-        return 0
+    return 0
 
 
 def canBeMade(word, myTiles):  # noqa: Task defined function name
     """Checks if the word can be made with the tiles."""
+    function_player_tiles = myTiles.copy()
     for letter in word:
-        if letter in myTiles:
+        if letter in function_player_tiles:
             try:
-                myTiles.remove(letter)
+                function_player_tiles.remove(letter)
             except ValueError:
                 return False
         else:
@@ -96,6 +96,7 @@ def isValid(word):  # noqa: Task defined function name
 
 
 def best_word():
+    """Finds the highest scoring word that can be made with the tiles."""
     # non-assessed function (Task 7)
     # Brute force method to find the highest scoring word
     highest_scoring_word = ""
@@ -173,6 +174,7 @@ def start_game():
     print("Generating Random Tiles ...")
     global player_tiles
     player_tiles = generate_random_tiles()
+    print(best_word())
     print("Tiles: " + str(player_tiles))
     player_tile_scores = tile_score(player_tiles)
     print("Scores:" + str(player_tile_scores))
