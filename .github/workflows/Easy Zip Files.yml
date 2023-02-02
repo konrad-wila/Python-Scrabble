@@ -11,4 +11,7 @@ jobs:
         with:
           files: scrabble.py
           dest: ScrabblePython.zip
+      - uses: actions/upload-artifact@v2
+        with:
+          name: ScrabblePython.zip
           path: ${{ github.workspace }}/ScrabblePython.zip
