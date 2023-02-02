@@ -73,7 +73,7 @@ def is_valid(word):
     return False
 
 
-"""End of Task defined functions"""
+#End of Task defined functions
 
 
 def remove_word_from_tiles(word):
