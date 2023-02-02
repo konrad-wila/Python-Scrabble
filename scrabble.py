@@ -2,8 +2,8 @@
 import random
 import sys
 
-
 def read_scores():
+    # Task 1 function
     """Reads the scores from the scores.txt file and returns a dictionary of the scores."""
     with open("scores.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -17,6 +17,7 @@ scores = read_scores()
 
 
 def read_tiles():
+    # Task 1 function
     """Reads the tiles from the tiles.txt file and returns an array of the tiles."""
     with open("tiles.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -29,6 +30,7 @@ tiles = read_tiles()
 
 
 def read_dictionary():
+    # Task 1 function
     """Reads the dictionary from the dictionary.txt file and returns a list of the words."""
     with open("dictionary.txt", "r", encoding="utf-8") as file:
         for line in file:
@@ -40,52 +42,88 @@ dictionary = []
 dictionary = read_dictionary()
 
 
-def only_english_letters(word):
+def onlyEnglishLetters(word):  # noqa: Task defined function name
+    # Task 2 function
     """Checks if the word only contains English letters."""
     return bool(word.isalpha())
 
 
-def get_letter_score(letter):
+def getLetterScore(letter):  # noqa: Task defined function name
+    # Task 4 function
     """Returns the score of the letter."""
-    return int(scores[letter])
+    try:
+        return int(scores[letter])
+    except KeyError:
+        return 0
 
 
-def get_word_score(word):
+def getWordScore(word):  # noqa: Task defined function name
+    # Task 4 function
     """Returns the score of the word."""
-    score = 0
-    for letter in word:
-        score += get_letter_score(letter)
-    return score
+    if isValid(word):
+        score = 0
+        for letter in word:
+            score += getLetterScore(letter)
+        return score
+    else:
+        return 0
 
 
-def can_be_made(word):
+def canBeMade(word, myTiles):  # noqa: Task defined function name
     """Checks if the word can be made with the tiles."""
     for letter in word:
-        if letter not in tiles:
+        if letter in myTiles:
+            try:
+                myTiles.remove(letter)
+            except ValueError:
+                return False
+        else:
             return False
+
     return True
 
 
-def is_valid(word):
+
+def isValid(word):  # noqa: Task defined function name
     """Checks if the word is a valid word."""
-    if word in dictionary:
-        return True
-    return False
+    try:
+        if word in dictionary:
+            return True
+        return False
+    except NameError:
+        return False
 
 
-#End of Task defined functions
+def best_word():
+    # non-assessed function (Task 7)
+    # Brute force method to find the highest scoring word
+    highest_scoring_word = ""
+    best_score = 0
+    for word in dictionary:
+        if getWordScore(word) > best_score:
+            if canBeMade(word, player_tiles):
+                highest_scoring_word = word
+                best_score = getWordScore(word)
+    return highest_scoring_word
+
+
+# End of Task defined functions
 
 
 def remove_word_from_tiles(word):
     """Removes the word from the tiles."""
-    for letter in word:
-        tiles.remove(letter)
-    return tiles
+    try:
+        for letter in word:
+            tiles.remove(letter)
+        return tiles
+    except ValueError:
+        print("You do not have the letters to make this word.")
+        return tiles
 
 
 def final_input_attempt(attempt_number, max_amount_of_attempts):
     """Checks if the user has reached the maximum amount of attempts."""
-    if attempt_number == max_amount_of_attempts:
+    if attempt_number == max_amount_of_attempts - 1:
         print("Thanks for using this application, better luck next time!!!")
         sys.exit()
 
@@ -94,21 +132,21 @@ def word_input():
     """Gets word input from the user and checks if it is valid."""
     for count in range(3):
         word = input("Enter a word: ").upper()
-        if word == "&&&": # This is the secret code to exit the game
+        if word == "&&&":  # This is the secret code to exit the game
             print("Thanks for using this application, better luck next time!!!")
             sys.exit()
-        elif not only_english_letters(word):
+        elif not onlyEnglishLetters(word):
             final_input_attempt(count, 3)
             print("Only use English letters...")
-        elif not is_valid(word):
+        elif not isValid(word):
             final_input_attempt(count, 3)
             print("This is not a valid word.")
-        elif not can_be_made(word):
+        elif not canBeMade(word, player_tiles):
             final_input_attempt(count, 3)
             print("You do not have the letters to make this word.")
-        if only_english_letters(word) and can_be_made(word) and is_valid(word):
+        if onlyEnglishLetters(word) and canBeMade(word, player_tiles) and isValid(word):
             print("You got it right, this is a valid word")
-            print("Score of this word is: " + str(get_word_score(word)))
+            print("Score of this word is: " + str(getWordScore(word)))
             remove_word_from_tiles(word)
             break
 
@@ -125,13 +163,14 @@ def tile_score(function_tiles):
     """Calculates the score of the tiles."""
     score = []
     for letter in function_tiles:
-        score.append(get_letter_score(letter))
+        score.append(getLetterScore(letter))
     return score
 
 
 def start_game():
     """Starts the game."""
     print("Generating Random Tiles ...")
+    global player_tiles
     player_tiles = generate_random_tiles()
     print("Tiles: " + str(player_tiles))
     player_tile_scores = tile_score(player_tiles)
