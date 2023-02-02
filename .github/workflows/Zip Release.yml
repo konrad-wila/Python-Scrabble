@@ -9,10 +9,8 @@ jobs:
       uses: thedoctor0/zip-release@0.7.1
       with:
         type: 'zip'
-        path: ${{ github.workspace }}
         filename: 'ScrabblePython.zip'
         exclusions: '*.git* /*node_modules/* .editorconfig *.git .idea/ .github/ CO1107 Assignment 2023.pdf *.txt'
-
     - name: Upload Release
       uses: ncipollo/release-action@v1.12.0
       with:
