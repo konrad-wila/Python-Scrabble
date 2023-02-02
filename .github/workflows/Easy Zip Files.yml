@@ -11,3 +11,4 @@ jobs:
         with:
           files: scrabble.py
           dest: ScrabblePython.zip
+          path: ${{ github.workspace }}/ScrabblePython.zip
