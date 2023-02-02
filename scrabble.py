@@ -47,7 +47,7 @@ def only_english_letters(word):
 
 def get_letter_score(letter):
     """Returns the score of the letter."""
-    return scores[letter]
+    return int(scores[letter])
 
 
 def get_word_score(word):
@@ -71,6 +71,9 @@ def is_valid(word):
     if word in dictionary:
         return True
     return False
+
+
+"""End of Task defined functions"""
 
 
 def remove_word_from_tiles(word):
