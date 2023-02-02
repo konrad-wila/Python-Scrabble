@@ -94,7 +94,10 @@ def word_input():
     """Gets word input from the user and checks if it is valid."""
     for count in range(3):
         word = input("Enter a word: ").upper()
-        if not only_english_letters(word):
+        if word == "&&&": # This is the secret code to exit the game
+            print("Thanks for using this application, better luck next time!!!")
+            sys.exit()
+        elif not only_english_letters(word):
             final_input_attempt(count, 3)
             print("Only use English letters...")
         elif not is_valid(word):
