@@ -8,10 +8,14 @@ def read_dictionary():
     # Precondition: dictionary.txt file exists in the same directory as this file and is in the correct format.
     # Postcondition: returns a list of the words
     """Reads the dictionary from the dictionary.txt file and returns a list of the words."""
-    with open("dictionary.txt", "r", encoding="utf-8") as file:
-        for line in file:
-            dictionary.append(line.strip())
-    return dictionary
+    try:
+        with open("dictionary.txt", "r", encoding="utf-8") as file:
+            for line in file:
+                dictionary.append(line.strip())
+        return dictionary
+    except FileNotFoundError:
+        print("Error: dictionary.txt file not found.")
+        return False
 
 
 dictionary = []
@@ -50,3 +54,11 @@ def isValid(word, MyTiles, dictionary):  # noqa: Task defined function name
         return canBeMade(word, MyTiles)
     except NameError:
         return False
+
+def test_isValid():
+    assert isValid("hello", ["h", "e", "l", "l", "o"], dictionary) == True
+    assert isValid("hello", ["h", "e", "l", "l", "o", "o"], dictionary) == True
+    assert isValid("hello", ["h", "e", "l", "l", "o"], dictionary) == True
+    assert isValid("hello", ["h", "e", "l", "l", "l"], dictionary) == False
+
+test_isValid()

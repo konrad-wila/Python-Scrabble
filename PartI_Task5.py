@@ -20,3 +20,19 @@ def canBeMade(word, myTiles):  # noqa: Task defined function name
             return False
 
     return True
+
+def test_canBeMade():
+    """Test canBeMade function."""
+    assert canBeMade("cat", ["c", "a", "s"]) is False
+    assert canBeMade("cat", ["c", "a", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t", "t", "t", "t", "t"]) is True
+    assert canBeMade("cat", ["c", "a", "t", "t", "t", "t", "t", "t", "t", "t", "t", "t"]) is True
+
+test_canBeMade()
